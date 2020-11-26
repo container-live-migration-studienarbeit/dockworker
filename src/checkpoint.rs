@@ -16,6 +16,12 @@ pub struct CheckpointCreateOptions {
     #[serde(skip_serializing_if = "Option::is_none")]
     // None -> set by docker to false, container keeps running by default
     pub exit: Option<bool>,
+
+    // Changed for our custom docker version
+
+    #[serde(skip_serializing_if = "Option::is_none")]
+    // None -> set by docker to false, dump is done in one go
+    pub pre_dump: Option<bool>,
 }
 
 #[cfg(feature = "experimental")]
