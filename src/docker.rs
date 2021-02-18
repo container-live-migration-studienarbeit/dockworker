@@ -336,11 +336,21 @@ impl Docker {
         id: &str,
         checkpoint_id: &str,
         checkpoint_dir: Option<&str>,
+        lazy_migration: Option<bool>,
+        page_server: Option<String>,
     ) -> Result<()> {
         let mut param = url::form_urlencoded::Serializer::new(String::new());
         param.append_pair("checkpoint", &checkpoint_id);
         if let Some(dir) = checkpoint_dir {
             param.append_pair("checkpoint-dir", &dir);
+        }
+        if let Some(lazy) = lazy_migration {
+            if lazy {
+                param.append_pair("lazy-migration", "true");
+            }
+        }
+        if let Some(page) = page_server {
+            param.append_pair("page-server", &page);
         }
         self.http_client()
             .post(

@@ -22,6 +22,12 @@ pub struct CheckpointCreateOptions {
     #[serde(skip_serializing_if = "Option::is_none")]
     // None -> set by docker to false, dump is done in one go
     pub pre_dump: Option<bool>,
+
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub lazy_migration: Option<bool>,
+    
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub page_server: Option<String>,    
 }
 
 #[cfg(feature = "experimental")]
